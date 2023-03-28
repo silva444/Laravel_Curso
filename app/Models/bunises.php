@@ -9,9 +9,10 @@ class bunises extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ // preciso salvar esses campos no banco de dados;
+    protected $fillable = [ // preciso salvar esses campos no banco de dados; // se nao fizer iso nao gravaa;
 
-        'name'
+        'name',
+        'logo'
 
     ];
 }

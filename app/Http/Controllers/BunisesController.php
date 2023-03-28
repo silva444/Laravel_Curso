@@ -4,9 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\bunises;
+use Illuminate\Support\Facades\Redirect;
 class BunisesController extends Controller
 {
     public function index(){
+
+       // $bunni= bunises::all(); // pega todos os registros do bancco de dados;
+
+       $bunni= bunises::paginate(7); // mostra apenas sete registro// paginação;
+        
+
+        return view('bunises',[
+            'bunises' => $bunni
+        ]);
+        //-----------esse é outra forma de fazer o comando acima;
+        // return view('bunises', compact('bunni'));
+
+        //-----------esse é outra forma de fazer o comando acima;
+        
+
+
+
         // $bunise= bunises::all();  // pego todos os registros do banco de dados;
         // dd($bunise); // 
         // $bunise= bunises::find(1); // pega apneas um resgistro de id 1 ;
@@ -63,15 +81,43 @@ class BunisesController extends Controller
         ///dd($buni->toSql()); // exibir o sql;
         dd($buni->toArray()); // exibir o arry diretamnete;
        // $buni->delete();
-
-
-
-
-
-
-
-
-
        
     }
+
+    public function store(Request $request){
+        
+      //dd($request->all());
+
+         
+        $input = $request->validate([
+            'name' => 'required',
+            // 'email' => 'required' // esse campo é requerido poso colocar o tipo requierd|string;
+            'logo' => 'file',
+        ]);
+
+        $file= $input['logo'];
+
+
+        $path=$file->store('logos','public');  // salava no store;
+        // $path=$input['logo']->store('logos','public');  // salava no store;
+        $input['logo'] = $path;
+        //dd($input);
+
+      
+
+
+
+         $bunises=bunises::create($input); // adiciono no banco
+
+
+        // dd($bunises); // trouxe o model de bunises
+
+     return Redirect::route('bunises.index'); // redirecina para essa rota;
+      
+
+    }
+
+   
+
+
 }

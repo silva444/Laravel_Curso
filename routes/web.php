@@ -64,7 +64,8 @@ Route::get('/request', function (\Illuminate\Http\Request $request) {
 
 Route::get('/users/{user}', [\App\Http\Controllers\User2_controller::class, 'show'])->name('user.show'); // segundo parametro é mmetodo // 
 Route::get('/users', [\App\Http\Controllers\User2_controller::class, 'index'])->name('user.index'); // segundo parametro é mmetodo // 
-Route::get('/bunises', [\App\Http\Controllers\BunisesController::class, 'index']);
+Route::get('/bunises', [\App\Http\Controllers\BunisesController::class, 'index'])->name('bunises.index');
+Route::post('/bunises', [\App\Http\Controllers\BunisesController::class, 'store'])->name('bunises.store');
 //posso dar qualquer nome;;
 
 Route::get('/', function () { // fica opcional o string com a ? // fica null como default
